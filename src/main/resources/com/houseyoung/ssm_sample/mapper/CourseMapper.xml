@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.houseyoung.ssm_sample.mapper.CourseMapper">
+    <resultMap id="courseResultMap" type="Course">
+        <id column="id" property="id"/>
+        <result column="course_name" property="courseName"/>
+        <result column="course_teachername" property="courseTeacherName"/>
+    </resultMap>
+
+    <insert id="add">
+        INSERT INTO t_course (id, course_name, course_teachername)
+        VALUES(#{course.id}, #{course.courseName}, #{course.courseTeacherName})
+    </insert>
+
+    <update id="update">
+        UPDATE t_course SET course_name = #{course.courseName}, course_teachername = #{course.courseTeacherName}
+        WHERE id = #{course.id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM t_course WHERE id = #{id}
+    </delete>
+
+    <select id="queryById" resultMap="courseResultMap">
+        SELECT * FROM t_course WHERE id = #{id}
+    </select>
+
+    <select id="listCourse" resultMap="courseResultMap">
+        SELECT * FROM t_course
+        <where>
+            <if test="keywords!=null">
+                course_name LIKE "%"#{keywords}"%"
+            </if>
+        </where>
+        ORDER BY id
+    </select>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="username" value="root"/>
+        <property name="password" value="mysql"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/db_ssm_sample?useUnicode=true&amp;characterEncoding=utf-8" />
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="idleConnectionTestPeriod" value="60"/>
+        <property name="idleMaxAge" value="240"/>
+        <property name="maxConnectionsPerPartition" value="60"/>
+        <property name="minConnectionsPerPartition" value="20"/>
+        <property name="partitionCount" value="3"/>
+        <property name="acquireIncrement" value="10"/>
+        <property name="statementCacheSize" value="50"/>
+        <property name="releaseHelperThreads" value="3"/>
+    </bean>
+
+    <!-- MyBatis文件配置，扫描所有.xml文件 -->
+    <bean id="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="dataSource"
+          p:configLocation="classpath:mybatis-config.xml"
+          p:mapperLocations="classpath:com/houseyoung/ssm_sample/mapper/*.xml"/>
+
+    <!-- Spring与MyBatis整合配置，扫描所有DAO -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.houseyoung.ssm_sample.mapper"
+          p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
+
+    <!-- 对数据源进行事务管理 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="dataSource"/>
+</beans>

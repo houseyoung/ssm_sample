@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.houseyoung.ssm_sample.mapper.ScoreMapper">
+    <select id="listScore" resultType="ScoreDto">
+        SELECT
+        t_score.id AS id,
+        t_student.student_id AS studentId,
+        t_student.student_name AS studentName,
+        t_course.course_name AS courseName,
+        t_score.score AS score
+        FROM t_score
+        LEFT JOIN t_student ON t_score.student_id=t_student.student_id
+        LEFT JOIN t_course ON t_score.course_id = t_course.id
+        <where>
+            <if test="keywords!=null">
+                t_course.course_name LIKE "%"#{keywords}"%"
+            </if>
+        </where>
+        ORDER BY studentId
+    </select>
+
+    <select id="listScoreByStudentId" resultType="ScoreDto">
+        SELECT
+        t_score.id AS id,
+        t_student.student_id AS studentId,
+        t_student.student_name AS studentName,
+        t_course.course_name AS courseName,
+        t_score.score AS score
+        FROM t_score
+        LEFT JOIN t_student ON t_score.student_id=t_student.student_id
+        LEFT JOIN t_course ON t_score.course_id = t_course.id
+        WHERE t_score.student_id = #{studentId}
+        ORDER BY studentId
+    </select>
+
+    <insert id="add">
+        INSERT INTO t_score (score, student_id, course_id)
+        VALUES (#{scoreDto.score},
+        #{scoreDto.studentId},
+        (SELECT t_course.id FROM t_course WHERE t_course.course_name = #{scoreDto.courseName}))
+    </insert>
+
+    <update id="update">
+    UPDATE t_score SET score = #{scoreDto.score} WHERE id = #{scoreDto.id}
+    </update>
+
+    <delete id="deleteById">
+    DELETE FROM t_score WHERE id = #{id}
+    </delete>
+
+    <select id="queryById" resultType="ScoreDto">
+        SELECT
+        t_score.id AS id,
+        t_student.student_id AS studentId,
+        t_student.student_name AS studentName,
+        t_course.course_name AS courseName,
+        t_score.score AS score
+        FROM t_score
+        LEFT JOIN t_student ON t_score.student_id=t_student.student_id
+        LEFT JOIN t_course ON t_score.course_id = t_course.id
+        WHERE t_score.id = #{id}
+    </select>
+</mapper>

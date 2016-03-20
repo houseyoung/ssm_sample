@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.houseyoung.ssm_sample.mapper.StudentMapper">
+    <resultMap id="studentResultMap" type="Student">
+        <id column="id" property="id"/>
+        <result column="student_id" property="studentId"/>
+        <result column="student_name" property="studentName"/>
+        <result column="student_old" property="studentOld"/>
+        <result column="student_sex" property="studentSex"/>
+    </resultMap>
+
+    <select id="listStudent" resultMap="studentResultMap">
+        SELECT * FROM t_student
+        <if test="keywords!=null">
+            <where>
+                student_name LIKE "%"#{keywords}"%"
+            </where>
+        </if>
+        ORDER BY student_id
+    </select>
+
+    <insert id="add">
+        INSERT INTO t_student (id, student_id, student_name, student_sex, student_old)
+        VALUES(#{student.id}, #{student.studentId}, #{student.studentName}, #{student.studentSex}, #{student.studentOld})
+    </insert>
+
+    <update id="update">
+        UPDATE t_student
+        SET
+            student_id = #{student.studentId},
+            student_name = #{student.studentName},
+            student_sex = #{student.studentSex},
+            student_old = #{student.studentOld}
+        WHERE id = #{student.id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM t_student WHERE id = #{id}
+    </delete>
+
+    <select id="queryById" resultMap="studentResultMap">
+        SELECT * FROM t_student WHERE id = #{id}
+    </select>
+</mapper>

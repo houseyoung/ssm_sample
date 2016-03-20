@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 命名空间 -->
+    <typeAliases>
+        <typeAlias alias="Course" type="com.houseyoung.ssm_sample.entity.Course"/>
+        <typeAlias alias="Score" type="com.houseyoung.ssm_sample.entity.Score"/>
+        <typeAlias alias="Student" type="com.houseyoung.ssm_sample.entity.Student"/>
+        <typeAlias alias="User" type="com.houseyoung.ssm_sample.entity.User"/>
+        <typeAlias alias="ScoreDto" type="com.houseyoung.ssm_sample.dto.ScoreDto"/>
+    </typeAliases>
+</configuration>

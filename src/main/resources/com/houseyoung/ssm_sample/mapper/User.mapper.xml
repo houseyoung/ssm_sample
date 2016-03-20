@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.houseyoung.ssm_sample.mapper.UserMapper">
+    <resultMap id="userResultMap" type="User">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+    </resultMap>
+
+    <insert id="newUser">
+        INSERT INTO t_user (user_name, password) VALUES(#{user.userName}, #{user.password})
+    </insert>
+
+    <update id="update">
+        UPDATE t_user
+        SET user_name = #{user.userName},
+            password = #{user.password}
+        WHERE id = #{user.id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM t_user WHERE id = #{id}
+    </delete>
+
+    <select id="listAll" resultMap="userResultMap">
+        SELECT * FROM t_user
+    </select>
+
+    <select id="queryById" resultType="User">
+        SELECT * FROM t_user WHERE id = #{id}
+    </select>
+
+    <select id="countByUserNameAndPassword" resultType="int">
+        SELECT count(1) FROM t_user
+        WHERE user_name = #{userName} AND password = #{password}
+    </select>
+</mapper>
