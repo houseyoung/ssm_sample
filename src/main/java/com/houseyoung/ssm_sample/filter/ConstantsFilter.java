@@ -23,8 +23,10 @@ public class ConstantsFilter implements Filter{
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String path = httpRequest.getContextPath();
 
-        basePath = httpRequest.getScheme() + "://" + httpRequest.getServerName() + ":"
-                + httpRequest.getServerPort()  + path + "/";
+        int port = httpRequest.getServerPort();
+
+        basePath = httpRequest.getScheme() + "://" + httpRequest.getServerName()
+                + (port == 80 ? "" : (":" + port)) + path + "/";
 
         request.setAttribute("website", basePath);
         chain.doFilter(request, response);
