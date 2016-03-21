@@ -39,7 +39,7 @@
           p:configLocation="classpath:mybatis-config.xml"
           p:mapperLocations="classpath:com/houseyoung/ssm_sample/mapper/*.xml"/>
 
-    <!-- Spring与MyBatis整合配置，扫描所有DAO -->
+    <!-- Spring与MyBatis整合配置，扫描所有Mapper接口 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
           p:basePackage="com.houseyoung.ssm_sample.mapper"
           p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
