@@ -2,6 +2,7 @@ package com.houseyoung.ssm_sample.controller;
 
 import com.houseyoung.ssm_sample.entity.Student;
 import com.houseyoung.ssm_sample.service.StudentService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +17,14 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "student")
-
 public class StudentController {
 
     @Resource
     private StudentService studentService;
 
     //显示、搜索学生
-    @RequestMapping(value = "student_list")
+    @RequiresPermissions("Admin:Student:View")
+    @RequestMapping(value = "student_list",method = RequestMethod.GET)
     public String toStudentList(String keywords, Model model) throws Exception{
         List<Student> listStudent = studentService.listStudent(keywords);
         model.addAttribute("listStudent", listStudent);
@@ -43,6 +44,7 @@ public class StudentController {
     }
 
     //修改学生
+    @RequiresPermissions("ADF")
     @RequestMapping(value = "student_edit", method = RequestMethod.GET)
     public String toStudentEdit(Integer id, Model model) throws Exception{
         Student student = studentService.queryById(id);

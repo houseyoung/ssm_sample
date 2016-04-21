@@ -8,7 +8,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * UserServiceImpl
@@ -22,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Override
+     
     public void newUser(@Param("user") User user) throws Exception {
         if (user == null) {
             return ;
@@ -36,7 +38,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
+
     public void update(@Param("user") User user) throws Exception {
         if (user == null) {
             return ;
@@ -49,7 +51,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
+
     public void deleteById(@Param("id") int id) throws Exception {
         if (id <= 0) {
             return ;
@@ -62,7 +64,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
+
     public List<User> listAll() throws Exception {
         try {
             return userMapper.listAll();
@@ -71,7 +73,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
+
     public User queryById(@Param("id") int id) throws Exception {
         if (id <= 0) {
             return null;
@@ -83,17 +85,46 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
+
     public boolean checkLogin(User user) throws Exception {
         if (user == null) {
             return false;
         }
 
         try {
+            //System.out.println(MD5Utils.md5(user.getPassword()));
             user.setPassword(MD5Utils.md5(user.getPassword()));
             return userMapper.countByUserNameAndPassword(user.getUserName(), user.getPassword()) > 0 ? true : false;
         } catch (Exception e) {
             throw new Exception("系统内部异常");
         }
+    }
+
+    public User findByUserName(@Param("userName") String userName) throws Exception {
+        try {
+            return userMapper.findByUserName(userName);
+        } catch (Exception e) {
+            throw new Exception("系统内部异常");
+        }
+    }
+
+    public Set<String> findRoles(String userName) throws Exception {
+        Set<String> roleSet = Collections.emptySet();
+        try {
+             roleSet = userMapper.findRoles(userName);
+        } catch (Exception e) {
+            throw new Exception("系统内部异常");
+        }
+        return roleSet;
+    }
+
+    public Set<String> findPermissions(String username) throws Exception{
+        Set<String> permissionSet = Collections.emptySet();
+        try {
+            permissionSet = userMapper.findPermissions(username);
+        } catch (Exception e) {
+            throw new Exception("系统内部异常");
+        }
+        return permissionSet;
     }
 }

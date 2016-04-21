@@ -23,6 +23,8 @@ public class User {
 
     private String password;
 
+    private String salt; //加密密码的盐
+
     public Integer getId() {
         return id;
     }
@@ -45,5 +47,17 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCredentialsSalt() {
+        return userName + salt;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

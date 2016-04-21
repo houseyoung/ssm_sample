@@ -36,4 +36,26 @@
         SELECT count(1) FROM t_user
         WHERE user_name = #{userName} AND password = #{password}
     </select>
+
+    <select id="findByUserName"  resultType="User">
+        SELECT id,user_name as userName ,salt ,password FROM t_user WHERE user_name = #{userName}
+    </select>
+
+    <select id="findRoles" resultType="string">
+        SELECT NAME
+        FROM t_user
+        LEFT JOIN t_user_group ON t_user.`id` = t_user_group.`user_id`
+        LEFT JOIN t_group ON t_group.`id` = t_user_group.`group_id`
+        WHERE t_user.`user_name` = #{userName}
+    </select>
+
+    <select id="findPermissions" resultType="string">
+        SELECT expression
+        FROM t_user
+        LEFT JOIN t_user_group ON t_user.`id` = t_user_group.`user_id`
+        LEFT JOIN t_group ON t_group.`id` = t_user_group.`group_id`
+        LEFT JOIN t_group_permission ON t_group.`id` = t_group_permission.`group_id`
+        LEFT JOIN t_permisssion ON t_permisssion.`id` = t_group_permission.`permission_id`
+        WHERE t_user.`user_name` = #{userName};
+    </select>
 </mapper>

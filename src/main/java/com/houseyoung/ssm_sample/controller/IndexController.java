@@ -26,20 +26,22 @@ public class IndexController {
     @Resource
     private UserService userService;
 
-    @RequestMapping(value = {"", "/", "login"}, method = RequestMethod.GET)
-    public String toLogin(HttpServletRequest request)
-    {
-        //If session have attribute "user", jump to index page, else jump to login page.
-        if (request.getSession().getAttribute("user") != null){
-            return "index";
-        }
-        else {
-            return "login";
-        }
-    }
+//    @RequestMapping(value = {"", "/", "login"}, method = RequestMethod.GET)
+//    public String toLogin(HttpServletRequest request)
+//    {
+//        //If session have attribute "user", jump to index page, else jump to login page.
+//        if (request.getSession().getAttribute("user") != null){
+//            return "index";
+//        }
+//        else {
+//            return "login";
+//        }
+////        return "index";
+//    }
 
-    @RequestMapping(value = {"index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String toIndex() {
+
         return "index";
     }
 

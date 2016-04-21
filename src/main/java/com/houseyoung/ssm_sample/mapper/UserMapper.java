@@ -4,6 +4,7 @@ import com.houseyoung.ssm_sample.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * UserMapper
@@ -25,4 +26,10 @@ public interface UserMapper {
 
     public int countByUserNameAndPassword(@Param("userName") String userName,
                                           @Param("password") String password) throws Exception;
+
+    public User findByUserName(@Param("userName") String userName) throws Exception;
+
+    public Set<String> findRoles(@Param("userName") String userName) throws Exception;
+
+    public Set<String> findPermissions(@Param("userName") String userName) throws Exception;
 }
