@@ -19,7 +19,7 @@ public class StudentServiceImpl implements StudentService {
     private StudentMapper studentMapper;
 
     //显示、搜索学生
-    @Override
+     
     public List<Student> listStudent(@Param("keywords") String keywords) throws Exception {
         try {
             return studentMapper.listStudent(keywords);
@@ -29,7 +29,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     //新增学生
-    @Override
+     
     public void add(@Param("student") Student student) throws Exception {
         if (student == null) {
             return ;
@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     //更新学生
-    @Override
+     
 //    public void update(@Param("student") Student student) throws Exception {
     public void update(int id, int studentId, String studentName, String studentSex, String studentOld) throws Exception {
 //        if (Assert.isNull(student)) {
@@ -65,7 +65,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     //根据ID查询学生
-    @Override
+     
     public Student queryById(@Param("id") int id) throws Exception {
         if (id <= 0) {
             return null;
@@ -77,8 +77,12 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    public Student queryByName(String name) throws Exception {
+        return null;
+    }
+
     //根据ID删除学生
-    @Override
+     
     public void deleteById(@Param("id") int id) throws Exception {
         if (id <= 0) {
             return ;

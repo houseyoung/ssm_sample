@@ -20,4 +20,6 @@ public interface StudentService {
     public List<Student> listStudent(@Param("keywords") String keywords) throws Exception;
 
     public Student queryById(@Param("id") int id) throws Exception;
+
+    public Student queryByName(String name) throws Exception;
 }
