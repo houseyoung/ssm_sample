@@ -2,9 +2,11 @@ package com.houseyoung.ssm_sample.controller;
 
 import com.houseyoung.ssm_sample.entity.Student;
 import com.houseyoung.ssm_sample.service.StudentService;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,8 +21,20 @@ import java.util.List;
 @RequestMapping(value = "student")
 public class StudentController {
 
+    // 这里可以指定为Exception处理各种样的异常，也可以指定对某一种异常进行处理(如果controller层抛出的不是这种类型的异常，则不会处理)
+    @ExceptionHandler({Exception.class})
+    public void exceptionHandlerTest(Exception e){
+        System.out.println("xiaozl");
+    }
+
+    @ExceptionHandler({UnauthorizedException.class})
+    public void exceptionHandlerTest(UnauthorizedException e){
+        System.out.println("xiaozl");
+    }
+
     @Resource
     private StudentService studentService;
+
 
     //显示、搜索学生
     @RequiresPermissions("Admin:Student:View")
