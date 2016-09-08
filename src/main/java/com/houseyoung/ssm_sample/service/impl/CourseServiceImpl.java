@@ -24,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return courseMapper.listCourse(keywords);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             courseMapper.add(course);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -56,7 +56,7 @@ public class CourseServiceImpl implements CourseService {
             course.setCourseTeacherName(courseTeacherName);
             courseMapper.update(course);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             return courseMapper.queryById(id);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -83,7 +83,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             courseMapper.deleteById(id);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 

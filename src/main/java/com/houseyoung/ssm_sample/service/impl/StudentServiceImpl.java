@@ -24,7 +24,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             return studentMapper.listStudent(keywords);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             studentMapper.add(student);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class StudentServiceImpl implements StudentService {
             student.setStudentOld(studentOld);
             studentMapper.update(student);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -73,7 +73,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             return studentMapper.queryById(id);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             studentMapper.deleteById(id);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 }

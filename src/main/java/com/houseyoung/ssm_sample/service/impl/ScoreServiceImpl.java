@@ -24,7 +24,7 @@ public class ScoreServiceImpl implements ScoreService {
         try {
             return scoreMapper.listScore(keywords);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -34,7 +34,7 @@ public class ScoreServiceImpl implements ScoreService {
         try {
             return scoreMapper.listScoreByStudentId(studentId);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class ScoreServiceImpl implements ScoreService {
         try {
             scoreMapper.add(scoreDto);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -62,7 +62,7 @@ public class ScoreServiceImpl implements ScoreService {
         try {
             scoreMapper.update(scoreDto);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -76,7 +76,7 @@ public class ScoreServiceImpl implements ScoreService {
         try {
             scoreMapper.deleteById(id);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -89,7 +89,7 @@ public class ScoreServiceImpl implements ScoreService {
         try {
             return scoreMapper.queryById(id);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 }

@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(MD5Utils.md5(user.getPassword()));
             userMapper.newUser(user);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         try {
             userMapper.update(user);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
         try {
             userMapper.deleteById(id);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userMapper.listAll();
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userMapper.queryById(id);
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(MD5Utils.md5(user.getPassword()));
             return userMapper.countByUserNameAndPassword(user.getUserName(), user.getPassword()) > 0 ? true : false;
         } catch (Exception e) {
-            throw new Exception("系统内部异常");
+            throw new Exception(e.getMessage());
         }
     }
 }
